@@ -1,0 +1,13 @@
+{
+  "name": "boaty",
+  "version": "1.0.0",
+  "description": "AIS watcher",
+  "main": "index.js",
+  "author": "Jer Thorp",
+  "license": "MIT",
+  "dependencies": {
+    "aisparser": "^0.0.13",
+    "raspi": "^6.0.1",
+    "raspi-serial": "^5.1.1"
+  }
+}
