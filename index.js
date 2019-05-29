@@ -67,7 +67,9 @@ function getVesselDetails(mmsi) {
 	    var j = JSON.parse(t);
 	    return(j);
 	  });
-});
+}).on("error", (err) => {
+  console.log("Error: " + err.message);
+});;
 
 }
 
