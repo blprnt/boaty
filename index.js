@@ -47,6 +47,7 @@ function parseAIS(msg) {
 	for (n in vals) {
 		console.log(n + ":" + result[n]);
 	}
+	getVesselDetails(result.mmsi)
 }
 
 //Get vessel detail
