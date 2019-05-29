@@ -47,7 +47,8 @@ function parseAIS(msg) {
 	for (n in vals) {
 		//console.log(n + ":" + result[n]);
 	}
-	getVesselDetails(result.mmsi)
+	var v = getVesselDetails(result.mmsi);
+	console.log(v.value);
 }
 
 //Get vessel detail
@@ -63,7 +64,6 @@ function getVesselDetails(mmsi) {
 
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
-	  	console.log(data);
 	    var t = data.split("var ls_vessel  = ")[1].split("/*")[0];
 	    var j = JSON.parse(t);
 	    return(j);
