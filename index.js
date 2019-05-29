@@ -66,7 +66,7 @@ function getVesselDetails(mmsi) {
 	  resp.on('end', () => {
 	    var t = data.split("var ls_vessel  = ")[1].split("/*")[0];
 	    var j = JSON.parse(t);
-	    console.log(j.value);
+	    console.log(j.value + " :" + j.desc);
 	    return(j);
 	  });
 }).on("error", (err) => {
