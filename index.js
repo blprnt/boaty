@@ -64,10 +64,14 @@ function getVesselDetails(mmsi) {
 
 	  // The whole response has been received. Print out the result.
 	  resp.on('end', () => {
-	    var t = data.split("var ls_vessel  = ")[1].split("/*")[0];
-	    var j = JSON.parse(t);
-	    console.log(j.value + " :" + j.desc);
-	    return(j);
+	  	try {
+		    var t = data.split("var ls_vessel  = ")[1].split("/*")[0];
+		    var j = JSON.parse(t);
+		    console.log(j.value + " :" + j.desc);
+		    return(j);
+		} catch (e) {
+			
+		}
 	  });
 }).on("error", (err) => {
   console.log("Error: " + err.message);
