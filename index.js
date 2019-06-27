@@ -107,7 +107,7 @@ function fileSignal(obj) {
 	db.serialize(() => {
 
         var stmt = db.prepare('insert or replace into signal values (?,?,?,?,?,?,?)');
-		stmt.run([mmsi,new Date().toString(), obj.latitude, obj.longitude, obj.heading, obj.sog, obg.cog]);
+		stmt.run([obj.mmsi,new Date().toString(), obj.latitude, obj.longitude, obj.heading, obj.sog, obg.cog]);
         stmt.finalize();
 
     });
