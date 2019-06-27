@@ -27,7 +27,8 @@ db.serialize(() => {
             'lat numeric, ' + 
             'lon numeric, ' +
             'heading numeric, ' + 
-            'speed numeric)'
+            'speed numeric, ' + 
+            'cog numeric)'
             );
 });
 
@@ -66,13 +67,19 @@ function buildAIS(data) {
 }
 
 function parseAIS(msg) {
+	
 	console.log("*** " + msg);
 	var result = parser.parse(msg);
 	
 	var vals = result.supportedValues;
+	if (vals.latitude) {
+		fileSignal(vals);
+	}
+	/*
 	for (n in vals) {
 		console.log(n + ":" + result[n]);
 	}
+	*/
 
 
 	checkVessel(result.mmsi);
@@ -94,6 +101,21 @@ function checkVessel(mmsi) {
 			}
 		}
 	});
+}
+
+fileSignal(obj) {
+	db.serialize(() => {
+
+        var stmt = db.prepare('insert or replace into signal values (?,?,?,?,?,?,?)');
+		stmt.run([mmsi,new Date().toString(), obj.latitude, obj.longitude, obj.heading, obj.sog, obg.cog);
+        stmt.finalize();
+
+    });
+
+    db.each('select mmsi, latitude, longitude '
+          + 'from signal ', (err, row) => {
+      console.log(row.mmsi + " - " + row.latitude + ': ' + row.longitude);
+    });
 }
 
 function fileVessel(json) {
