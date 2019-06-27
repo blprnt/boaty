@@ -93,7 +93,7 @@ function checkVessel(mmsi) {
 			var re = /mmsi\=\"(\d+)/;
 			var mmsi = re.exec(n)[1];
 			if (row[n] == 0) {
-				fileVessel(mmsi);
+				getVesselDetails(mmsi);
 			} else {
 				console.log("VESSEL EXISTS:" + mmsi);
 			}
