@@ -7,7 +7,29 @@ fs = require('fs');
 var parser = new AisParser();
 
 var sqlite3 = require('sqlite3').verbose();
+
+//Init DB
 var db   = new sqlite3.Database('./boaty.db');
+db.serialize(() => {
+	    //vessels
+        db.run('create table if not exists ' +
+            'vessel (' +
+            'mmsi numeric primary key, ' +
+            'name text, ' +
+            'desc text, ' +
+            'lastSeen text)');
+
+        //reports
+        db.run('create table if not exists ' +
+            'signal (' +
+            'mmsi numeric, ' +
+            'time text, ' +
+            'lat numeric, ' + 
+            'lon numeric, ' +
+            'heading numeric, ' + 
+            'speed numeric)'
+            );
+});
 
 var buff = "";
 
@@ -59,14 +81,26 @@ function parseAIS(msg) {
 		console.log("RETRIEVE:" + result.mmsi);
 		console.log(vesselMap[result.mmsi]);
 	}
-
-	
-	
-	
 	
 }
 
-function fileVessel(mmsi) {
+function fileVessel(json) {
+	var re = /\/mmsi:(\d+)/;
+	var mmsi = re.exec(json.id)[0];
+	console.log("MMSI:" + mmsi);
+    db.serialize(() => {
+
+        var stmt = db.prepare('insert into vessel values (?,?,?,?)');
+		stmt.run([mmsi, json.label, json.type, new Date().toString() ]);
+        stmt.finalize();
+
+    });
+
+    db.each('select rowid, title '
+          + 'from vessel '
+          + 'order by rowid asc', (err, row) => {
+      console.log(row.rowid + ': ' + row.title);
+    });
 	
 }
 
@@ -87,7 +121,7 @@ console.log(mmsi);
 	  	try {
 		    var t = data.split("var ls_vessel  = ")[1].split("/*")[0];
 		    var j = JSON.parse(t);
-		    console.log(j);
+		    fileVessel(j);
 		    
 		} catch (e) {
 		    console.log("ERROR" + e);
