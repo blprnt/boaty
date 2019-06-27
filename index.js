@@ -90,7 +90,7 @@ function parseAIS(msg) {
 	
 
 
-	checkVessel(result.mmsi);
+	if (result.aisType != 0) checkVessel(result.mmsi);
 		
 	
 }
