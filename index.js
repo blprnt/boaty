@@ -88,8 +88,13 @@ function parseAIS(msg) {
 function checkVessel(mmsi) {
 	console.log("checkVessel");
 	db.get('SELECT EXISTS(SELECT 1 FROM vessel WHERE mmsi="' + mmsi + '")', function(err, row) {
+		var mmsi = /mmsi\=\"(\d+)/.exec(n)[1];
 		for (n in row) {
-			console.log(n + ":" + row[n]);
+			if (row[n] == 0) {
+				fileVessel(mmsi);
+			} else {
+				console.log("VESSEL EXISTS:" + mmsi);
+			}
 		}
 	});
 }
