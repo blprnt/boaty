@@ -8,6 +8,7 @@
   "dependencies": {
     "aisparser": "^0.0.13",
     "raspi": "^6.0.1",
-    "raspi-serial": "^5.1.1"
+    "raspi-serial": "^5.1.1",
+    "sqlite3": "^4.0.9"
   }
 }
