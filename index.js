@@ -96,10 +96,9 @@ function fileVessel(json) {
 
     });
 
-    db.each('select rowid, title '
-          + 'from vessel '
-          + 'order by rowid asc', (err, row) => {
-      console.log(row.rowid + ': ' + row.title);
+    db.each('select mmsid, name '
+          + 'from vessel ', (err, row) => {
+      console.log(row.mmsid + ': ' + row.title);
     });
 	
 }
