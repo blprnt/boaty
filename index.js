@@ -90,7 +90,7 @@ function fileVessel(json) {
 	console.log("MMSI:" + mmsi);
     db.serialize(() => {
 
-        var stmt = db.prepare('insert into vessel values (?,?,?,?)');
+        var stmt = db.prepare('insert or replace into vessel values (?,?,?,?)');
 		stmt.run([mmsi, json.label, json.type, new Date().toString() ]);
         stmt.finalize();
 
