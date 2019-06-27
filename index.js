@@ -71,12 +71,12 @@ function parseAIS(msg) {
 	
 	var vals = result.supportedValues;
 	for (n in vals) {
-		//console.log(n + ":" + result[n]);
+		console.log(n + ":" + result[n]);
 	}
 
 
 	if (!vesselMap[result.mmsi]) {
-		checkVessel(result.mmsi);
+		if (result.mmsi.length > 3) checkVessel(result.mmsi);
 		//getVesselDetails(result.mmsi);
 	} else {
 		console.log("RETRIEVE:" + result.mmsi);
