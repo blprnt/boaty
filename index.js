@@ -76,12 +76,20 @@ function parseAIS(msg) {
 
 
 	if (!vesselMap[result.mmsi]) {
-		getVesselDetails(result.mmsi);
+		checkVessel(result.mmsi);
+		//getVesselDetails(result.mmsi);
 	} else {
 		console.log("RETRIEVE:" + result.mmsi);
 		console.log(vesselMap[result.mmsi]);
 	}
 	
+}
+
+function checkVessel(mmsi) {
+	console.log("checkVessel");
+	db.get('SELECT EXISTS(SELECT 1 FROM vessel WHERE mmsi="' + mmsi + '")', function(err, row) {
+		console.log("ROW");
+	});
 }
 
 function fileVessel(json) {
@@ -106,7 +114,6 @@ function fileVessel(json) {
 //Get vessel detail
 //https://www.marinetraffic.com/en/ais/details/ships/mmsi:367782880
 function getVesselDetails(mmsi) {
-console.log(mmsi);
 	https.get("https://www.marinetraffic.com/en/ais/details/ships/mmsi:" + mmsi, (resp) => {
 	  let data = '';
 
