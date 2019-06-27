@@ -75,13 +75,8 @@ function parseAIS(msg) {
 	}
 
 
-	if (!vesselMap[result.mmsi]) {
-		if (result.mmsi.length > 3) checkVessel(result.mmsi);
-		//getVesselDetails(result.mmsi);
-	} else {
-		console.log("RETRIEVE:" + result.mmsi);
-		console.log(vesselMap[result.mmsi]);
-	}
+	checkVessel(result.mmsi);
+		
 	
 }
 
