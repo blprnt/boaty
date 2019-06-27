@@ -72,15 +72,19 @@ function parseAIS(msg) {
 	var result = parser.parse(msg);
 	
 	var vals = result.supportedValues;
+
+	for (n in vals) {
+		console.log(n + ":" + result[n]);
+	}
+
+	
 	if (result.latitude) {
 		fileSignal(result);
 	}
 	
 	/*
 	var sig = [];
-	for (n in vals) {
-		console.log(n + ":" + result[n]);
-	}
+	
 	*/
 	
 
