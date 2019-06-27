@@ -86,7 +86,7 @@ function parseAIS(msg) {
 
 function fileVessel(json) {
 	var re = /\/mmsi:(\d+)/;
-	var mmsi = re.exec(json.id)[0];
+	var mmsi = re.exec(json.id)[1];
 	console.log("MMSI:" + mmsi);
     db.serialize(() => {
 
@@ -96,9 +96,9 @@ function fileVessel(json) {
 
     });
 
-    db.each('select mmsid, name '
+    db.each('select mmsi, name '
           + 'from vessel ', (err, row) => {
-      console.log(row.mmsid + ': ' + row.title);
+      console.log(row.mmsi + ': ' + row.title);
     });
 	
 }
