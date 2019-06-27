@@ -74,7 +74,7 @@ function parseAIS(msg) {
 	var vals = result.supportedValues;
 
 	for (n in vals) {
-		console.log(n + ":" + result[n]);
+		//console.log(n + ":" + result[n]);
 	}
 
 
@@ -82,15 +82,12 @@ function parseAIS(msg) {
 		if (result.heading == NaN) result.heading = -1;
 		fileSignal(result);
 	}
-	
-	/*
-	var sig = [];
-	
-	*/
-	
 
-
-	if (result.aisType != 0) checkVessel(result.mmsi);
+	if (result.aisType != 0) {
+		checkVessel(result.mmsi);
+	} else {
+		//console.log();
+	}
 		
 	
 }
@@ -121,11 +118,13 @@ function fileSignal(obj) {
 
     });
 
+	/*
     db.each('select mmsi, lat, lng '
           + 'from signal ', (err, row) => {
       console.log(err);
       console.log(row);
     });
+	*/
 }
 
 function fileVessel(json) {
