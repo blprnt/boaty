@@ -98,7 +98,7 @@ function fileVessel(json) {
 
     db.each('select mmsi, name '
           + 'from vessel ', (err, row) => {
-      console.log(row.mmsi + ': ' + row.title);
+      console.log(row.mmsi + ': ' + row.name);
     });
 	
 }
