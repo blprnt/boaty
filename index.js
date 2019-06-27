@@ -79,7 +79,7 @@ function parseAIS(msg) {
 
 
 	if (result.latitude) {
-		if (result.heading == "NaN") result.heading = -1;
+		if (result.heading == NaN) result.heading = -1;
 		fileSignal(result);
 	}
 	
