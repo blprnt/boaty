@@ -107,7 +107,7 @@ function checkVessel(mmsi) {
 }
 
 function fileSignal(obj) {
-	console.log("FILE SIGNAL" + obj.mmsi + ":" + obj.latitude);
+	console.log("FILE SIGNAL" + obj.heading + ":" + obj.sog + ":" + obj.cog);
 	db.serialize(() => {
 
         var stmt = db.prepare('insert or replace into signal values (?,?,?,?,?,?,?)');
