@@ -25,7 +25,7 @@ db.serialize(() => {
             'mmsi numeric, ' +
             'time text, ' +
             'lat numeric, ' + 
-            'lon numeric, ' +
+            'lng numeric, ' +
             'heading numeric, ' + 
             'speed numeric, ' + 
             'cog numeric)'
@@ -121,7 +121,7 @@ function fileSignal(obj) {
 
     });
 
-    db.each('select mmsi, latitude, longitude '
+    db.each('select mmsi, lat, lng '
           + 'from signal ', (err, row) => {
       console.log(err);
       console.log(row);
