@@ -72,14 +72,17 @@ function parseAIS(msg) {
 	var result = parser.parse(msg);
 	
 	var vals = result.supportedValues;
-	if (vals.latitude) {
-		fileSignal(vals);
+	if (result.latitude) {
+		fileSignal(result);
 	}
+	
 	/*
+	var sig = [];
 	for (n in vals) {
 		console.log(n + ":" + result[n]);
 	}
 	*/
+	
 
 
 	checkVessel(result.mmsi);
