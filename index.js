@@ -123,7 +123,8 @@ function fileSignal(obj) {
 
     db.each('select mmsi, latitude, longitude '
           + 'from signal ', (err, row) => {
-      console.log(row.mmsi + " - " + row.latitude + ': ' + row.longitude);
+      console.log(err);
+      console.log(row);
     });
 }
 
