@@ -103,7 +103,7 @@ function checkVessel(mmsi) {
 	});
 }
 
-fileSignal(obj) {
+function fileSignal(obj) {
 	db.serialize(() => {
 
         var stmt = db.prepare('insert or replace into signal values (?,?,?,?,?,?,?)');
