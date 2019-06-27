@@ -77,8 +77,9 @@ function parseAIS(msg) {
 		console.log(n + ":" + result[n]);
 	}
 
-	
+
 	if (result.latitude) {
+		if (!result.heading) result.heading = -1;
 		fileSignal(result);
 	}
 	
