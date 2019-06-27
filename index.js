@@ -88,6 +88,7 @@ function parseAIS(msg) {
 function checkVessel(mmsi) {
 	console.log("checkVessel");
 	db.get('SELECT EXISTS(SELECT 1 FROM vessel WHERE mmsi="' + mmsi + '")', function(err, row) {
+		console.log(n);
 		var re = /mmsi\=\"(\d+)/;
 		var mmsi = re.exec(n)[1];
 		for (n in row) {
