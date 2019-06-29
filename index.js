@@ -47,7 +47,7 @@ var express = require('express'),
 app.listen(port);
 
 app.get("/api/signals", (req, res, next) => {
-    var sql = "select * from signal order desc limit 100"
+    var sql = "SELECT * FROM signal ORDER BY DESC LIMIT 100"
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
