@@ -93,17 +93,20 @@ function parseAIS(msg) {
 }
 
 function checkVessel(mmsi) {
-	console.log("checkVessel");
+	//console.log("checkVessel");
 	db.get('SELECT EXISTS(SELECT 1 FROM vessel WHERE mmsi="' + mmsi + '")', function(err, row) {
-		
+		try {
 		for (n in row) {
 			var re = /mmsi\=\"(\d+)/;
 			var mmsi = re.exec(n)[1];
 			if (row[n] == 0) {
 				getVesselDetails(mmsi);
 			} else {
-				console.log("VESSEL EXISTS:" + mmsi);
+				//console.log("VESSEL EXISTS:" + mmsi);
 			}
+		}
+		} catch (e) {
+
 		}
 	});
 }
