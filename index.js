@@ -47,8 +47,38 @@ var express = require('express'),
 app.listen(port);
 
 app.get("/api/signals", (req, res, next) => {
-    var sql = "SELECT * FROM signal ORDER BY rowid DESC LIMIT 100"
+    var sql = "SELECT * FROM signal ORDER BY rowid DESC LIMIT 1000"
     var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
+app.get("/api/signals/:id", (req, res, next) => {
+    var sql = "SELECT * FROM signal WHERE mmsi = ? ORDER BY rowid DESC LIMIT 1000"
+    var params = [req.params.id]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
+app.get("/api/vessels/:id", (req, res, next) => {
+    var sql = "SELECT * FROM vessel WHERE mmsi = ?"
+    var params = [req.params.id]
     db.all(sql, params, (err, rows) => {
         if (err) {
           res.status(400).json({"error":err.message});
