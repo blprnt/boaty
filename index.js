@@ -61,6 +61,21 @@ app.get("/api/signals", (req, res, next) => {
       });
 });
 
+app.get("/api/signals/all/:limit", (req, res, next) => {
+    var sql = "SELECT * FROM signal ORDER BY rowid DESC LIMIT ?"
+    var params = [req.params.limit]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
 app.get("/api/signals/:id", (req, res, next) => {
     var sql = "SELECT * FROM signal WHERE mmsi = ? ORDER BY rowid DESC LIMIT 1000"
     var params = [req.params.id]
