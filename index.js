@@ -68,7 +68,7 @@ function buildAIS(data) {
 
 function parseAIS(msg) {
 	
-	console.log("*** " + msg);
+	//console.log("*** " + msg);
 	var result = parser.parse(msg);
 	
 	var vals = result.supportedValues;
@@ -130,7 +130,9 @@ function fileSignal(obj) {
 function fileVessel(json) {
 	var re = /\/mmsi:(\d+)/;
 	var mmsi = re.exec(json.id)[1];
+	console.log("NEW VESSEL");
 	console.log("MMSI:" + mmsi);
+	console.log("NAME:" + json.label);
     db.serialize(() => {
 
         var stmt = db.prepare('insert or replace into vessel values (?,?,?,?)');
@@ -139,10 +141,12 @@ function fileVessel(json) {
 
     });
 
+    /*
     db.each('select mmsi, name '
           + 'from vessel ', (err, row) => {
       console.log(row.mmsi + ': ' + row.name);
     });
+	*/
 	
 }
 
