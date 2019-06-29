@@ -8,6 +8,13 @@ var parser = new AisParser();
 
 var sqlite3 = require('sqlite3').verbose();
 
+//Init vars
+
+var buff = "";
+var testMMSI = "367782880";
+var vesselMap = {};
+
+
 //Init DB
 var db   = new sqlite3.Database('./boaty.db');
 db.serialize(() => {
@@ -32,11 +39,29 @@ db.serialize(() => {
             );
 });
 
-var buff = "";
+//Start server
+var express = require('express'),
+  app = express(),
+  port = process.env.PORT || 3000;
 
-var testMMSI = "367782880";
+app.listen(port);
 
-var vesselMap = {};
+app.get("/api/signals", (req, res, next) => {
+    var sql = "select * from signal order desc limit 100"
+    var params = []
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
+
 
 //Monitor the serial port for the AIS receiver
 
