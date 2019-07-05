@@ -91,6 +91,26 @@ app.get("/api/signals/:id", (req, res, next) => {
       });
 });
 
+app.get("/api/signals/date/:date", (req, res, next) => {
+	//date format DDMMYYYY
+	//Fri Jul 05 2019
+	var d = new Date(req.params.date.substring(4,8), req.params.date.substring(2,4), req.params.date.substring(0,2) );
+	var ds = d.toString();
+
+    var sql = "SELECT * FROM signal WHERE instr(time, ?) > 0"
+    var params = [ds.substring(0,14)]
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+          res.status(400).json({"error":err.message});
+          return;
+        }
+        res.json({
+            "message":"success",
+            "data":rows
+        })
+      });
+});
+
 app.get("/api/vessels/:id", (req, res, next) => {
     var sql = "SELECT * FROM vessel WHERE mmsi = ?"
     var params = [req.params.id]
