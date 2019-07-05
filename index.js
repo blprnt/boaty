@@ -97,6 +97,9 @@ app.get("/api/signals/date/:date", (req, res, next) => {
 	var d = new Date(req.params.date.substring(4,8), req.params.date.substring(2,4), req.params.date.substring(0,2) );
 	var ds = d.toString();
 
+	console.log(ds);
+	console.log(ds.substring(0,14));
+
     var sql = "SELECT * FROM signal WHERE instr(time, ?) > 0"
     var params = [ds.substring(0,14)]
     db.all(sql, params, (err, rows) => {
