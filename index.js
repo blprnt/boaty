@@ -100,7 +100,7 @@ app.get("/api/signals/date/:date", (req, res, next) => {
 	console.log(ds);
 	console.log(ds.substring(0,14));
 
-    var sql = "SELECT * FROM signal WHERE instr(time, ?) > 0"
+    var sql = "SELECT * FROM signal WHERE instr(time, ?) > 0 ORDER BY rowid DESC"
     var params = [ds.substring(0,14)]
     db.all(sql, params, (err, rows) => {
         if (err) {
